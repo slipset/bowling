@@ -9,8 +9,7 @@
 (defn new-frame? 
   "Should we update the current frame, or should we create a new one?"
   [frame]
-  (let [s (second frame)]
-    (or (strike? frame) (rolled? s))))
+    (or (strike? frame) (rolled? (second frame))))
 
 (defn roll 
   "If frames is empty, we add a new frame,
