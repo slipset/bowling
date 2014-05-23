@@ -1,11 +1,14 @@
 (ns bowling.core)
 
+(defn empty-slot? [v]
+  (< -1 v))
+  
 (defn new-frame? 
   "Should we update the current frame, or should we create a new one?"
   [frame]
   (let [f (first frame)
         s (second frame)]
-    (or (= 10 f) (>  s -1))))
+    (or (= 10 f) (empty-slot? s))))
 
 (defn roll 
   "If frames is empty, we add a new frame,
@@ -23,7 +26,7 @@
 (defn frame-score
   "Give the score of a frame without bonus"
   [frame]
-  (reduce + (filter #(< -1 %)frame)))
+  (reduce + (filter empty-slot? frame)))
 
 (defn strike? [frame]
   (= 10 (first frame)))
@@ -42,7 +45,7 @@
   (when (seq frames)
     (->> frames
          (flatten)
-         (filter #(< -1 %))
+         (filter empty-slot?)
          (take 2))))
 
 (defn score
