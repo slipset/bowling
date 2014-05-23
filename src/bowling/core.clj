@@ -35,7 +35,7 @@
   (let [score (frame-score frame)]
    (cond
      (< score 10) score 
-     (strike? frame) (+ 10 (reduce + bonus))
+     (strike? frame) (apply + 10 bonus)
      :else  (+ 10 (first bonus)))))
 
 (defn next-two
