@@ -53,14 +53,16 @@
    frame start by calling (score frames '(0 0))
    If not called with bonus, it will calculate its own"
   ([frames]
-     (if (= 11 (count frames))
-       (score (rest frames) (first frames))
-       (score frames [0 0])))
+     (let [frame-count (count frames)]
+       (cond (= 11 frame-count)
+             (score (rest frames) (next-two frames))
+             (= 12 frame-count)
+             (score (rest (rest frames)) (next-two frames))
+             :else  (score frames [0 0]))))
   ([frames bonus]
      (if (seq frames)
-       (let [current (first frames)
-             past (score (rest frames) (next-two frames))]
-         (+ past (frame-total current bonus)))
+         (+ (frame-total (first frames) bonus)
+            (score (rest frames) (next-two frames)))
        0)))
   
 (comment (-> (-> '() 
