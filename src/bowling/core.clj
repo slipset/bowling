@@ -28,7 +28,9 @@
 (defn frame-score
   "Give the score of a frame without bonus"
   [frame]
-  (reduce + (filter rolled? frame)))
+  (->> frame
+       (filter rolled?)
+       (reduce +)))
 
 (defn frame-total [frame bonus]
   "Calculates the total of a frame incl. bonus"
