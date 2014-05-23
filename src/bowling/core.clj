@@ -15,7 +15,7 @@
 (defn roll 
   "If frames is empty, we add a new frame,
    otherwise we either update the first frame or create
-   a new one, returns the updated frames("
+   a new one, returns the updated frames"
   [frames pins]
   (if (empty? frames)
     (conj frames [pins -1])
