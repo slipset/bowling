@@ -38,7 +38,7 @@
      (strike? frame) (apply + 10 bonus)
      :else  (+ 10 (first bonus)))))
 
-(defn next-two
+(defn bonus-rolls
   "Gets the next two rolls from the list of frames"
   [frames]
   (when (seq frames)
@@ -54,15 +54,13 @@
    If not called with bonus, it will calculate its own"
   ([frames]
      (let [frame-count (count frames)]
-       (cond (= 11 frame-count)
-             (score (rest frames) (next-two frames))
-             (= 12 frame-count)
-             (score (rest (rest frames)) (next-two frames))
+       (cond (= 11 frame-count) (score (rest frames) (bonus-rolls frames))
+             (= 12 frame-count) (score (rest (rest frames)) (bonus-rolls frames))
              :else  (score frames [0 0]))))
   ([frames bonus]
      (if (seq frames)
          (+ (frame-total (first frames) bonus)
-            (score (rest frames) (next-two frames)))
+            (score (rest frames) (bonus-rolls frames)))
        0)))
   
 (comment (-> (-> '() 
